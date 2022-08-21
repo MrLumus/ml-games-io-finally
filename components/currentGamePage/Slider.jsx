@@ -26,16 +26,10 @@ const Wrapper = styled.div`
 const SliderWrapper = styled.div`
   max-width: 100%;
   overflow: hidden;
-  height: 200px;
+  height: auto;
   border-radius: 15px;
 
   @media screen and (min-width: ${size.tablet}) {
-    height: auto;
-  }
-  @media screen and (min-width: ${size.laptop}) {
-    height: auto;
-  }
-  @media screen and (min-width: ${size.laptopL}) {
     height: auto;
   }
 `;
@@ -137,6 +131,9 @@ const Image = styled.img`
   }
   @media screen and (min-width: ${size.laptop}) {
     height: 500px;
+  }
+  @media screen and (min-width: ${size.laptop}) {
+    height: 600px;
   }
 `;
 

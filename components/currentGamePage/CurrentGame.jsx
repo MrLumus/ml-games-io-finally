@@ -75,6 +75,7 @@ const Subtitle = styled.h3`
 
   @media screen and (min-width: ${size.tablet}) {
     font-size: 20px;
+    margin-bottom: 10px;
   }
   @media screen and (min-width: ${size.laptop}) {
     font-size: 30px;
@@ -89,13 +90,7 @@ const Subtitle = styled.h3`
 const Description = styled.p`
   font-size: 13px;
   color: #ddd;
-  margin-bottom: 10px;
   text-align: center;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  column-gap: 5px;
-  row-gap: 5px;
 
   @media screen and (min-width: ${size.tablet}) {
     font-size: 20px;
@@ -103,7 +98,6 @@ const Description = styled.p`
   @media screen and (min-width: ${size.laptop}) {
     font-size: 25px;
     text-align: left;
-    margin-bottom: 25px;
     justify-content: flex-start;
     row-gap: 15px;
     column-gap: 10px;
@@ -112,22 +106,138 @@ const Description = styled.p`
     font-size: 35px;
   }
 `;
-
-const StoreLink = styled.a`
+const WebSiteLink = styled.a`
   color: #fff;
-  border: 1px solid #fff;
-  padding: 5px;
-  background-color: rgba(255, 255, 255, 0.2);
   text-decoration: none;
-  border-radius: 5px;
+  transition: 0.2s;
+  position: relative;
+
+  ::after {
+    content: "";
+    position: absolute;
+    width: 0%;
+    height: 1px;
+    background-color: #fff;
+    left: 0;
+    top: 110%;
+    transition: 0.2s;
+  }
+  :hover::after {
+    width: 100%;
+  }
+`;
+const StoreLinksContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  column-gap: 5px;
+  row-gap: 5px;
+
+  @media screen and (min-width: ${size.tablet}) {
+    row-gap: 10px;
+    column-gap: 10px;
+  }
+  @media screen and (min-width: ${size.laptop}) {
+    row-gap: 15px;
+    column-gap: 15px;
+  }
+`;
+const GenresContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  row-gap: 5px;
+  column-gap: 5px;
+
+  @media screen and (min-width: ${size.laptop}) {
+    justify-content: flex-start;
+  }
+`;
+const Genre = styled.div`
+  font-size: 10px;
+  padding: 5px;
+  color: #fff;
+  background-color: #555;
+  text-align: center;
+  border-radius: 10px;
+
+  @media screen and (min-width: ${size.tablet}) {
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 20px;
+  }
+
+  @media screen and (min-width: ${size.laptop}) {
+    font-size: 25px;
+    padding: 15px;
+    border-radius: 30px;
+  }
+`;
+const StoreLink = styled.a`
+  font-size: 10px;
+  color: #fff;
+  border: 1px solid #bbb;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.3);
+  text-decoration: none;
+  border-radius: 15px;
   transition: 0.2s;
 
+  @media screen and (min-width: ${size.tablet}) {
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 20px;
+  }
   @media screen and (min-width: ${size.laptop}) {
     padding: 10px;
   }
-  :hover {
-    background-color: rgba(255, 255, 255, 0.3);
+  @media screen and (min-width: ${size.laptop}) {
+    font-size: 25px;
+    padding: 15px;
+    border-radius: 30px;
   }
+  :hover {
+    background-color: rgba(255, 255, 255, 0.4);
+  }
+`;
+const ScoreContainer = styled.div`
+  padding: 10px;
+  position: relative;
+  flex: 0 0 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media screen and (min-width: ${size.tablet}) {
+    padding: 20px;
+  }
+  @media screen and (min-width: ${size.laptop}) {
+    flex: 0 0 50%;
+  }
+
+  :not(:last-child)::after {
+    content: "";
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.3);
+    left: 50%;
+    top: 100%;
+    transform: translate(-50%, -50%);
+
+    @media screen and (min-width: ${size.tablet}) {
+      width: 30%;
+    }
+    @media screen and (min-width: ${size.laptop}) {
+      display: none;
+    }
+  }
+`;
+const ScoresContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
 const CurrentGame = (props) => {
@@ -148,19 +258,65 @@ const CurrentGame = (props) => {
         <GameContainer>
           <Header>{props.currentGame.name}</Header>
           <Slider screenshots={props.screenshots} />
-          <Title>About</Title>
-          <Description>{props.currentGame.description_raw}</Description>
-          <Subtitle>Web Sites:</Subtitle>
-          <Description>
-            {props.links.map((link) => {
-              return (
-                <StoreLink
-                  key={link.id}
-                  href={link.url}
-                >{`Link № ${counter++}`}</StoreLink>
-              );
-            })}
-          </Description>
+
+          <ScoreContainer>
+            <Title>About</Title>
+            <Description>{props.currentGame.description_raw}</Description>
+          </ScoreContainer>
+
+          <ScoresContainer>
+            <ScoreContainer>
+              <Subtitle>Genres:</Subtitle>
+              <GenresContainer>
+                {props.currentGame.genres ? (
+                  props.currentGame.genres.map((genre) => {
+                    return <Genre key={genre.id}>{genre.name}</Genre>;
+                  })
+                ) : (
+                  <></>
+                )}
+              </GenresContainer>
+            </ScoreContainer>
+
+            <ScoreContainer>
+              <Subtitle>Date of release:</Subtitle>
+              <Description>{props.currentGame.released}</Description>
+            </ScoreContainer>
+
+            <ScoreContainer>
+              <Subtitle>Rating / Metacritic</Subtitle>
+              <Description>
+                {props.currentGame.rating} / {props.currentGame.metacritic}
+              </Description>
+            </ScoreContainer>
+
+            <ScoreContainer>
+              <Subtitle>Web site:</Subtitle>
+              <Description>
+                <WebSiteLink href={props.currentGame.website}>
+                  {props.currentGame.website}
+                </WebSiteLink>
+              </Description>
+            </ScoreContainer>
+
+            <ScoreContainer>
+              <Subtitle>Stores:</Subtitle>
+              <StoreLinksContainer>
+                {props.links ? (
+                  props.links.map((link) => {
+                    return (
+                      <StoreLink
+                        key={link.id}
+                        href={link.url}
+                      >{`Link № ${counter++}`}</StoreLink>
+                    );
+                  })
+                ) : (
+                  <></>
+                )}
+              </StoreLinksContainer>
+            </ScoreContainer>
+          </ScoresContainer>
         </GameContainer>
       </Container>
     </GameWrapper>
