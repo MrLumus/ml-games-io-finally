@@ -58,11 +58,11 @@ const GamesGrid = ({ setFetching, children }) => {
   return (
     <Wrapper onScroll={scrollListener}>
       <Grid>
-        {games.map((game) => {
+        {games.map((game, index) => {
           if (game.id) {
             return (
               <Game
-                key={game.id}
+                key={index}
                 dataId={game.id}
                 dataSlug={game.slug}
                 dataHref={`/games/${game.slug}/${game.id}`}

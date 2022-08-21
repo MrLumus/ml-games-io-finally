@@ -150,10 +150,6 @@ const GenresContainer = styled.div`
   flex-wrap: wrap;
   row-gap: 5px;
   column-gap: 5px;
-
-  @media screen and (min-width: ${size.laptop}) {
-    justify-content: flex-start;
-  }
 `;
 const Genre = styled.div`
   font-size: 10px;
@@ -241,6 +237,19 @@ const ScoresContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const RateText = styled.span`
+  font-size: 20px;
+
+  @media screen and (min-width: ${size.tablet}) {
+    font-size: 30px;
+  }
+  @media screen and (min-width: ${size.laptop}) {
+    font-size: 40px;
+  }
+  @media screen and (min-width: ${size.laptop}) {
+    font-size: 55px;
+  }
+`;
 
 const CurrentGame = (props) => {
   const router = useRouter();
@@ -275,33 +284,54 @@ const CurrentGame = (props) => {
               <ScoreContainer>
                 <Subtitle>Genres:</Subtitle>
                 <GenresContainer>
-                  {props.currentGame.genres ? (
+                  {props.currentGame.genres.length ? (
                     props.currentGame.genres.map((genre) => {
                       return <Genre key={genre.id}>{genre.name}</Genre>;
                     })
                   ) : (
-                    <></>
+                    <Genre>unknown</Genre>
                   )}
                 </GenresContainer>
               </ScoreContainer>
 
               <ScoreContainer>
                 <Subtitle>Date of release:</Subtitle>
-                <Description>{props.currentGame.released}</Description>
+                <Description>
+                  {props.currentGame.released
+                    ? props.currentGame.released
+                    : "--"}
+                </Description>
               </ScoreContainer>
 
               <ScoreContainer>
                 <Subtitle>Rating / Metacritic</Subtitle>
                 <Description>
-                  {props.currentGame.rating} / {props.currentGame.metacritic}
+                  <RateText>
+                    {props.currentGame.rating} /{" "}
+                    {props.currentGame.metacritic ? (
+                      props.currentGame.metacritic
+                    ) : (
+                      <>--</>
+                    )}
+                  </RateText>
                 </Description>
               </ScoreContainer>
 
               <ScoreContainer>
                 <Subtitle>Web site:</Subtitle>
                 <Description>
-                  <WebSiteLink href={props.currentGame.website}>
-                    {props.currentGame.website}
+                  <WebSiteLink
+                    href={
+                      props.currentGame.website
+                        ? props.currentGame.website
+                        : "#"
+                    }
+                  >
+                    {props.currentGame.website ? (
+                      props.currentGame.website
+                    ) : (
+                      <>--</>
+                    )}
                   </WebSiteLink>
                 </Description>
               </ScoreContainer>

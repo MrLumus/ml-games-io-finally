@@ -70,19 +70,19 @@ const Rate = styled.p`
       return (
         "border: 1px solid green;" +
         "color: green;" +
-        "background-color: rgba(0, 255, 0, .1);"
+        "background-color: rgb(0, 65, 0);"
       );
     } else if (props.rating >= 3)
       return (
         "border: 1px solid yellow;" +
         "color: yellow;" +
-        "background-color: rgba(255, 255, 0, .2);"
+        "background-color: rgb(65, 65, 0);"
       );
     else
       return (
         "border: 1px solid red;" +
         "color: red;" +
-        "background-color: rgba(255, 0, 0, .1);"
+        "background-color: rgb(65, 0, 0);"
       );
   }};
 
