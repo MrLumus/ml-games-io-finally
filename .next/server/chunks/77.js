@@ -163,7 +163,6 @@ function fetchGames({ page , ordering , platforms , search  }) {
     if (ordering) url += `&ordering=${ordering}`;
     if (platforms) url += `&platforms=${platforms}`;
     if (search) url += `&search=${search}`;
-    console.log(url);
     return axios__WEBPACK_IMPORTED_MODULE_0___default().get(url);
 }
 function fetchPlatforms() {

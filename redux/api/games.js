@@ -9,7 +9,6 @@ export function fetchGames({ page, ordering, platforms, search }) {
   if (platforms) url += `&platforms=${platforms}`;
   if (search) url += `&search=${search}`;
 
-  console.log(url);
   return axios.get(url);
 }
 
