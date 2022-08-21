@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SelectList from "../components/gamesPage/SelectList/SelectList";
@@ -16,6 +16,7 @@ import {
   fetchPlatformsDataAC,
   updateGameNameAC,
 } from "../redux/actions";
+import Loader from "../components/global/Loader/Loader";
 
 const size = {
   mobileS: "320px",
@@ -34,6 +35,7 @@ const GamesWrapper = styled.section`
 const Wrapper = styled.div`
   padding: 0px 10px;
   height: 100%;
+  position: relative;
 `;
 
 const Header = styled.h1`
@@ -86,6 +88,7 @@ const Games = () => {
       let platforms = "";
       let page = "";
       let search = "";
+
       if (order) {
         switch (order) {
           case "1":
@@ -152,6 +155,7 @@ const Games = () => {
     <GamesWrapper>
       <Container>
         <Wrapper>
+          {isLoading ? <Loader position="absolute"></Loader> : <></>}
           <Header>ML-Games IO</Header>
           <ListWrapper>
             <SelectList

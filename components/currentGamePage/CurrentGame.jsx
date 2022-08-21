@@ -5,10 +5,12 @@ import styled from "styled-components";
 import Slider from "./Slider";
 import Container from "./../global/Container/Container";
 import {
+  cleanupCurrentGameDataAC,
   fetchCurrentGameDataAC,
   fetchLinksDataAC,
   fetchScreenshotsDataAC,
 } from "../../redux/actions";
+import Loader from "../global/Loader/Loader";
 
 const size = {
   mobileS: "320px",
@@ -250,74 +252,82 @@ const CurrentGame = (props) => {
     props.fecthCurrentGameData(id);
     props.fetchLinksData(id);
     props.fetchScreenshotsData(id);
+
+    return () => {
+      props.cleanupCurrentGameData();
+    };
   }, [id]);
 
   return (
     <GameWrapper>
       <Container>
-        <GameContainer>
-          <Header>{props.currentGame.name}</Header>
-          <Slider screenshots={props.screenshots} />
-
-          <ScoreContainer>
-            <Title>About</Title>
-            <Description>{props.currentGame.description_raw}</Description>
-          </ScoreContainer>
-
-          <ScoresContainer>
-            <ScoreContainer>
-              <Subtitle>Genres:</Subtitle>
-              <GenresContainer>
-                {props.currentGame.genres ? (
-                  props.currentGame.genres.map((genre) => {
-                    return <Genre key={genre.id}>{genre.name}</Genre>;
-                  })
-                ) : (
-                  <></>
-                )}
-              </GenresContainer>
-            </ScoreContainer>
+        {!props.isLoading ? (
+          <GameContainer>
+            <Header>{props.currentGame.name}</Header>
+            <Slider screenshots={props.screenshots} />
 
             <ScoreContainer>
-              <Subtitle>Date of release:</Subtitle>
-              <Description>{props.currentGame.released}</Description>
+              <Title>About</Title>
+              <Description>{props.currentGame.description_raw}</Description>
             </ScoreContainer>
 
-            <ScoreContainer>
-              <Subtitle>Rating / Metacritic</Subtitle>
-              <Description>
-                {props.currentGame.rating} / {props.currentGame.metacritic}
-              </Description>
-            </ScoreContainer>
+            <ScoresContainer>
+              <ScoreContainer>
+                <Subtitle>Genres:</Subtitle>
+                <GenresContainer>
+                  {props.currentGame.genres ? (
+                    props.currentGame.genres.map((genre) => {
+                      return <Genre key={genre.id}>{genre.name}</Genre>;
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </GenresContainer>
+              </ScoreContainer>
 
-            <ScoreContainer>
-              <Subtitle>Web site:</Subtitle>
-              <Description>
-                <WebSiteLink href={props.currentGame.website}>
-                  {props.currentGame.website}
-                </WebSiteLink>
-              </Description>
-            </ScoreContainer>
+              <ScoreContainer>
+                <Subtitle>Date of release:</Subtitle>
+                <Description>{props.currentGame.released}</Description>
+              </ScoreContainer>
 
-            <ScoreContainer>
-              <Subtitle>Stores:</Subtitle>
-              <StoreLinksContainer>
-                {props.links ? (
-                  props.links.map((link) => {
-                    return (
-                      <StoreLink
-                        key={link.id}
-                        href={link.url}
-                      >{`Link № ${counter++}`}</StoreLink>
-                    );
-                  })
-                ) : (
-                  <></>
-                )}
-              </StoreLinksContainer>
-            </ScoreContainer>
-          </ScoresContainer>
-        </GameContainer>
+              <ScoreContainer>
+                <Subtitle>Rating / Metacritic</Subtitle>
+                <Description>
+                  {props.currentGame.rating} / {props.currentGame.metacritic}
+                </Description>
+              </ScoreContainer>
+
+              <ScoreContainer>
+                <Subtitle>Web site:</Subtitle>
+                <Description>
+                  <WebSiteLink href={props.currentGame.website}>
+                    {props.currentGame.website}
+                  </WebSiteLink>
+                </Description>
+              </ScoreContainer>
+
+              <ScoreContainer>
+                <Subtitle>Stores:</Subtitle>
+                <StoreLinksContainer>
+                  {props.links ? (
+                    props.links.map((link) => {
+                      return (
+                        <StoreLink
+                          key={link.id}
+                          href={link.url}
+                        >{`Link № ${counter++}`}</StoreLink>
+                      );
+                    })
+                  ) : (
+                    <></>
+                  )}
+                </StoreLinksContainer>
+              </ScoreContainer>
+            </ScoresContainer>
+          </GameContainer>
+        ) : (
+          <Loader position="static"></Loader>
+        )}
       </Container>
     </GameWrapper>
   );
@@ -325,6 +335,7 @@ const CurrentGame = (props) => {
 
 const mapStateToProps = (state) => {
   return {
+    isLoading: state.currentGamePage.isLoading,
     currentGame: state.currentGamePage.currentGame,
     links: state.currentGamePage.links,
     screenshots: state.currentGamePage.screenshots,
@@ -335,6 +346,7 @@ const mapDispatchToProps = (dispatch) => {
     fecthCurrentGameData: (id) => dispatch(fetchCurrentGameDataAC(id)),
     fetchLinksData: (id) => dispatch(fetchLinksDataAC(id)),
     fetchScreenshotsData: (id) => dispatch(fetchScreenshotsDataAC(id)),
+    cleanupCurrentGameData: () => dispatch(cleanupCurrentGameDataAC()),
   };
 };
 

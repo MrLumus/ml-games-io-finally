@@ -7,6 +7,7 @@ import {
 import {
   setCurrentGameDataAC,
   setLinksDataAC,
+  setLoadingFalse,
   setScreenshotsDataAC,
 } from "../actions";
 
@@ -18,6 +19,7 @@ function* fetchCurrentGameWorker(action) {
   try {
     const game = yield call(fetchGameById, action.payload);
     yield put(setCurrentGameDataAC(game.data));
+    yield put(setLoadingFalse());
   } catch (e) {
     console.log(e);
   }

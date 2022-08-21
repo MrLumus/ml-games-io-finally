@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import Game from "./Game/Game";
+import Loader from "../../global/Loader/Loader";
 
 const size = {
   mobileS: "320px",
@@ -45,7 +46,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const GamesGrid = ({ setFetching }) => {
+const GamesGrid = ({ setFetching, children }) => {
   const games = useSelector((store) => store.gamesPage.games);
 
   const scrollListener = (e) => {

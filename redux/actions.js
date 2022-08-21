@@ -1,9 +1,13 @@
 import {
+  CLEANUP_CURRENT_GAME_DATA,
   SET_CURRENT_GAME_DATA,
   SET_LINKS_DATA,
+  SET_LOADING_FALSE,
+  SET_LOADING_TRUE,
   SET_SCREENSHOTS_DATA,
 } from "./reducers/current-game-reducer";
 import {
+  CLEANUP_GAMES_DATA,
   SET_FALSE_LOADING_STATUS,
   SET_GAMES_DATA,
   SET_PLATFORMS_DATA,
@@ -18,28 +22,17 @@ import {
 } from "./sagas/current-game-saga";
 import { FETCH_GAMES_DATA, FETCH_PLATFORMS_DATA } from "./sagas/games-saga";
 
-export function setCurrentGameDataAC(game) {
-  return {
-    type: SET_CURRENT_GAME_DATA,
-    game: game,
-  };
-}
-export function setScreenshotsDataAC(screens) {
-  return {
-    type: SET_SCREENSHOTS_DATA,
-    screenshots: screens,
-  };
-}
-export function setLinksDataAC(links) {
-  return {
-    type: SET_LINKS_DATA,
-    links: links,
-  };
-}
+//-------------------------- GAMES REDUCER --------------------------
+
 export function setGamesDataAC(games) {
   return {
     type: SET_GAMES_DATA,
     games: games,
+  };
+}
+export function cleanupGamesData() {
+  return {
+    type: CLEANUP_GAMES_DATA,
   };
 }
 export function updateGamesDataAC(games, page) {
@@ -70,6 +63,41 @@ export function setTrueLoadingStatusAC() {
 export function setFalseLoadingStatusAC() {
   return {
     type: SET_FALSE_LOADING_STATUS,
+  };
+}
+// ----------------------- CURRENT GAME REDUCER ---------------------------------------
+
+export function setCurrentGameDataAC(game) {
+  return {
+    type: SET_CURRENT_GAME_DATA,
+    game: game,
+  };
+}
+export function setScreenshotsDataAC(screens) {
+  return {
+    type: SET_SCREENSHOTS_DATA,
+    screenshots: screens,
+  };
+}
+export function setLinksDataAC(links) {
+  return {
+    type: SET_LINKS_DATA,
+    links: links,
+  };
+}
+export function cleanupCurrentGameDataAC() {
+  return {
+    type: CLEANUP_CURRENT_GAME_DATA,
+  };
+}
+export function setLoadingFalse() {
+  return {
+    type: SET_LOADING_FALSE,
+  };
+}
+export function setLoadingTrue() {
+  return {
+    type: SET_LOADING_TRUE,
   };
 }
 
@@ -105,11 +133,3 @@ export function fetchGamesDataAC() {
     payload: {},
   };
 }
-/*dispatch({
-  type: FETCH_PLATFORMS_DATA,
-  payload: {},
-});
-dispatch({
-  type: FETCH_GAMES_DATA,
-  payload: {},
-});*/

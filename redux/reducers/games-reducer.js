@@ -4,6 +4,7 @@ export const SET_PLATFORMS_DATA = "SET-PLATFORMS-DATA";
 export const UPDATE_GAME_NAME_TEXT = "UPDATE-GAME-NAME-TEXT";
 export const SET_TRUE_LOADING_STATUS = "SET-TRUE-LOADING-STATUS";
 export const SET_FALSE_LOADING_STATUS = "SET-FALSE-LOADING-STATUS";
+export const CLEANUP_GAMES_DATA = "CLEANUP-GAMES-DATA";
 
 const initialState = {
   isLoading: false,
@@ -34,6 +35,19 @@ function gamesReducer(state = initialState, action) {
       return {
         ...state,
         games: [...action.games],
+      };
+    case CLEANUP_GAMES_DATA:
+      return {
+        ...state,
+        games: [
+          {
+            id: null,
+            name: null,
+            rating: null,
+            released: null,
+            background_image: null,
+          },
+        ],
       };
     case UPDATE_GAME_DATA:
       return {
