@@ -9,23 +9,30 @@ exports.modules = {
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "BX": () => (/* binding */ fetchCurrentGameDataAC),
 /* harmony export */   "DD": () => (/* binding */ setGamesDataAC),
+/* harmony export */   "Fc": () => (/* binding */ setFetchingTrueAC),
+/* harmony export */   "I_": () => (/* binding */ toggleSearchStatusAC),
 /* harmony export */   "Kf": () => (/* binding */ setLinksDataAC),
 /* harmony export */   "Ph": () => (/* binding */ fetchScreenshotsDataAC),
 /* harmony export */   "Qt": () => (/* binding */ setLoadingFalse),
 /* harmony export */   "T1": () => (/* binding */ fetchLinksDataAC),
+/* harmony export */   "TS": () => (/* binding */ setOrderDataAC),
 /* harmony export */   "Tq": () => (/* binding */ setCurrentGameDataAC),
 /* harmony export */   "UN": () => (/* binding */ fetchGamesDataAC),
+/* harmony export */   "Vj": () => (/* binding */ setPageDataAC),
 /* harmony export */   "Z_": () => (/* binding */ cleanupCurrentGameDataAC),
 /* harmony export */   "_F": () => (/* binding */ updateGamesDataAC),
+/* harmony export */   "h2": () => (/* binding */ toggleSortdownDataAC),
 /* harmony export */   "i2": () => (/* binding */ updateGameNameAC),
+/* harmony export */   "jJ": () => (/* binding */ setPlatformDataAC),
 /* harmony export */   "lL": () => (/* binding */ setPlatformsDataAC),
 /* harmony export */   "nT": () => (/* binding */ cleanupGamesData),
 /* harmony export */   "oS": () => (/* binding */ setFalseLoadingStatusAC),
 /* harmony export */   "u6": () => (/* binding */ setTrueLoadingStatusAC),
 /* harmony export */   "vJ": () => (/* binding */ setScreenshotsDataAC),
-/* harmony export */   "vK": () => (/* binding */ fetchPlatformsDataAC)
+/* harmony export */   "vK": () => (/* binding */ fetchPlatformsDataAC),
+/* harmony export */   "yZ": () => (/* binding */ setFetchingFalseAC)
 /* harmony export */ });
-/* unused harmony export setLoadingTrue */
+/* unused harmony exports setTrueSearchStatusAC, setFalseSearchStatusAC, setLoadingTrue */
 /* harmony import */ var _reducers_current_game_reducer__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(5758);
 /* harmony import */ var _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1652);
 /* harmony import */ var _sagas_current_game_saga__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(4653);
@@ -73,6 +80,54 @@ function setTrueLoadingStatusAC() {
 function setFalseLoadingStatusAC() {
     return {
         type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .SET_FALSE_LOADING_STATUS */ .lo
+    };
+}
+function setOrderDataAC(order) {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .SET_ORDER_DATA */ .cs,
+        order: order
+    };
+}
+function setPlatformDataAC(platform) {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .SET_PLATFORM_DATA */ .VD,
+        platform: platform
+    };
+}
+function setPageDataAC(page) {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .SET_PAGE_DATA */ .t1,
+        page: page
+    };
+}
+function toggleSortdownDataAC() {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .TOGGLE_SORTDOWN_DATA */ .nJ
+    };
+}
+function setFetchingTrueAC() {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .SET_FETCHING_TRUE */ .Hu
+    };
+}
+function setFetchingFalseAC() {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .SET_FETCHING_FALSE */ .tE
+    };
+}
+function setTrueSearchStatusAC() {
+    return {
+        type: SET_TRUE_SEARCH_STATUS
+    };
+}
+function setFalseSearchStatusAC() {
+    return {
+        type: SET_FALSE_SEARCH_STATUS
+    };
+}
+function toggleSearchStatusAC() {
+    return {
+        type: _reducers_games_reducer__WEBPACK_IMPORTED_MODULE_1__/* .TOGGLE_SEARCH_STATUS */ .yD
     };
 }
 // ----------------------- CURRENT GAME REDUCER ---------------------------------------
@@ -247,15 +302,23 @@ function currentGameReducer(state = initialState, action) {
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "Hu": () => (/* binding */ SET_FETCHING_TRUE),
+/* harmony export */   "VD": () => (/* binding */ SET_PLATFORM_DATA),
 /* harmony export */   "ZP": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "ZZ": () => (/* binding */ SET_PLATFORMS_DATA),
 /* harmony export */   "Zr": () => (/* binding */ SET_GAMES_DATA),
 /* harmony export */   "c6": () => (/* binding */ UPDATE_GAME_NAME_TEXT),
+/* harmony export */   "cs": () => (/* binding */ SET_ORDER_DATA),
 /* harmony export */   "lo": () => (/* binding */ SET_FALSE_LOADING_STATUS),
+/* harmony export */   "nJ": () => (/* binding */ TOGGLE_SORTDOWN_DATA),
+/* harmony export */   "t1": () => (/* binding */ SET_PAGE_DATA),
+/* harmony export */   "tE": () => (/* binding */ SET_FETCHING_FALSE),
 /* harmony export */   "tf": () => (/* binding */ SET_TRUE_LOADING_STATUS),
 /* harmony export */   "xS": () => (/* binding */ CLEANUP_GAMES_DATA),
-/* harmony export */   "xi": () => (/* binding */ UPDATE_GAME_DATA)
+/* harmony export */   "xi": () => (/* binding */ UPDATE_GAME_DATA),
+/* harmony export */   "yD": () => (/* binding */ TOGGLE_SEARCH_STATUS)
 /* harmony export */ });
+/* unused harmony exports SET_TRUE_SEARCH_STATUS, SET_FALSE_SEARCH_STATUS */
 const SET_GAMES_DATA = "SET-GAMES-DATA";
 const UPDATE_GAME_DATA = "UPDATE-GAME-DATA";
 const SET_PLATFORMS_DATA = "SET-PLATFORMS-DATA";
@@ -263,9 +326,24 @@ const UPDATE_GAME_NAME_TEXT = "UPDATE-GAME-NAME-TEXT";
 const SET_TRUE_LOADING_STATUS = "SET-TRUE-LOADING-STATUS";
 const SET_FALSE_LOADING_STATUS = "SET-FALSE-LOADING-STATUS";
 const CLEANUP_GAMES_DATA = "CLEANUP-GAMES-DATA";
+const SET_ORDER_DATA = "SET-ORDER-DATA";
+const SET_PLATFORM_DATA = "SET-PLATFORM-DATA";
+const SET_PAGE_DATA = "SET-PAGE-DATA";
+const TOGGLE_SORTDOWN_DATA = "TOGGLE-SORTDOWN-DATA";
+const SET_FETCHING_TRUE = "SET-FETCHING-TRUE";
+const SET_FETCHING_FALSE = "SET-FETCHING-FALSE";
+const SET_TRUE_SEARCH_STATUS = "SET-TRUE-SEARCH-STATUS";
+const SET_FALSE_SEARCH_STATUS = "SET-FALSE-SEARCH-STATUS";
+const TOGGLE_SEARCH_STATUS = "TOGGLE-SEARCH-STATUS";
 const initialState = {
     isLoading: false,
     gameNameText: "",
+    order: "",
+    platform: "",
+    pageNum: 1,
+    isSortDown: false,
+    fetching: false,
+    searchStatus: false,
     sorts: [
         {
             id: 1,
@@ -349,6 +427,51 @@ function gamesReducer(state = initialState, action) {
             return {
                 ...state,
                 isLoading: false
+            };
+        case SET_ORDER_DATA:
+            return {
+                ...state,
+                order: action.order
+            };
+        case SET_PLATFORM_DATA:
+            return {
+                ...state,
+                platform: action.platform
+            };
+        case SET_PAGE_DATA:
+            return {
+                ...state,
+                pageNum: action.page
+            };
+        case TOGGLE_SORTDOWN_DATA:
+            return {
+                ...state,
+                isSortDown: !state.isSortDown
+            };
+        case SET_FETCHING_TRUE:
+            return {
+                ...state,
+                fetching: true
+            };
+        case SET_FETCHING_FALSE:
+            return {
+                ...state,
+                fetching: false
+            };
+        case SET_TRUE_SEARCH_STATUS:
+            return {
+                ...state,
+                searchStatus: true
+            };
+        case SET_FALSE_SEARCH_STATUS:
+            return {
+                ...state,
+                searchStatus: false
+            };
+        case TOGGLE_SEARCH_STATUS:
+            return {
+                ...state,
+                searchStatus: !state.searchStatus
             };
         default:
             return state;
@@ -446,8 +569,8 @@ function* fetchAdditionalGamesWorker(action) {
     try {
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)((0,_actions_js__WEBPACK_IMPORTED_MODULE_2__/* .setTrueLoadingStatusAC */ .u6)());
         const games = yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.call)(_api_games__WEBPACK_IMPORTED_MODULE_1__/* .fetchGames */ .kT, action.payload);
-        yield action.payload.setPage(action.payload.page + 1);
-        yield action.payload.setFetching(false);
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)((0,_actions_js__WEBPACK_IMPORTED_MODULE_2__/* .setPageDataAC */ .Vj)(action.payload.page + 1));
+        yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)((0,_actions_js__WEBPACK_IMPORTED_MODULE_2__/* .setFetchingFalseAC */ .yZ)());
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)((0,_actions_js__WEBPACK_IMPORTED_MODULE_2__/* .updateGamesDataAC */ ._F)(games.data.results));
         yield (0,redux_saga_effects__WEBPACK_IMPORTED_MODULE_0__.put)((0,_actions_js__WEBPACK_IMPORTED_MODULE_2__/* .setFalseLoadingStatusAC */ .oS)());
     } catch (e) {

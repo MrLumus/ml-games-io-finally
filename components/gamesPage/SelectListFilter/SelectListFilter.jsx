@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 import styled from "styled-components";
 
 const size = {
@@ -100,10 +99,9 @@ const SelectItem = styled.div`
   }
 `;
 
-const SelectListFilter = ({ items, setPlatform }) => {
+const SelectListFilter = ({ setPlatform, items }) => {
   const [isOpen, setOpen] = useState(false);
   const [listText, setListText] = useState("--");
-  const [listItems, setListItems] = useState([]);
 
   const toggleOpen = () => setOpen(!isOpen);
 
@@ -114,10 +112,6 @@ const SelectListFilter = ({ items, setPlatform }) => {
     setPlatform(platformId);
   };
 
-  useEffect(() => {
-    setListItems(items);
-  }, [items]);
-
   return (
     <Select>
       <SelectHeader onClick={toggleOpen}>
@@ -125,7 +119,7 @@ const SelectListFilter = ({ items, setPlatform }) => {
         <SelectIcon></SelectIcon>
       </SelectHeader>
       <SelectBody display={isOpen ? "inline-block" : "none"}>
-        {listItems.map((item) => {
+        {items.map((item) => {
           return (
             <SelectItem
               key={item.id}

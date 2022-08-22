@@ -9,9 +9,18 @@ import {
 import {
   CLEANUP_GAMES_DATA,
   SET_FALSE_LOADING_STATUS,
+  SET_FALSE_SEARCH_STATUS,
+  SET_FETCHING_FALSE,
+  SET_FETCHING_TRUE,
   SET_GAMES_DATA,
+  SET_ORDER_DATA,
+  SET_PAGE_DATA,
   SET_PLATFORMS_DATA,
+  SET_PLATFORM_DATA,
   SET_TRUE_LOADING_STATUS,
+  SET_TRUE_SEARCH_STATUS,
+  TOGGLE_SEARCH_STATUS,
+  TOGGLE_SORTDOWN_DATA,
   UPDATE_GAME_DATA,
   UPDATE_GAME_NAME_TEXT,
 } from "./reducers/games-reducer";
@@ -63,6 +72,54 @@ export function setTrueLoadingStatusAC() {
 export function setFalseLoadingStatusAC() {
   return {
     type: SET_FALSE_LOADING_STATUS,
+  };
+}
+export function setOrderDataAC(order) {
+  return {
+    type: SET_ORDER_DATA,
+    order: order,
+  };
+}
+export function setPlatformDataAC(platform) {
+  return {
+    type: SET_PLATFORM_DATA,
+    platform: platform,
+  };
+}
+export function setPageDataAC(page) {
+  return {
+    type: SET_PAGE_DATA,
+    page: page,
+  };
+}
+export function toggleSortdownDataAC() {
+  return {
+    type: TOGGLE_SORTDOWN_DATA,
+  };
+}
+export function setFetchingTrueAC() {
+  return {
+    type: SET_FETCHING_TRUE,
+  };
+}
+export function setFetchingFalseAC() {
+  return {
+    type: SET_FETCHING_FALSE,
+  };
+}
+export function setTrueSearchStatusAC() {
+  return {
+    type: SET_TRUE_SEARCH_STATUS,
+  };
+}
+export function setFalseSearchStatusAC() {
+  return {
+    type: SET_FALSE_SEARCH_STATUS,
+  };
+}
+export function toggleSearchStatusAC() {
+  return {
+    type: TOGGLE_SEARCH_STATUS,
   };
 }
 // ----------------------- CURRENT GAME REDUCER ---------------------------------------

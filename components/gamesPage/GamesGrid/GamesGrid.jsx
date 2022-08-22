@@ -1,7 +1,16 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { connect, useDispatch } from "react-redux";
 import Game from "./Game/Game";
-import Loader from "../../global/Loader/Loader";
+import {
+  fetchGamesDataAC,
+  setFetchingTrueAC,
+  setPageDataAC,
+} from "../../../redux/actions";
+import {
+  FETCH_ADDITIONAL_GAMES_DATA,
+  FETCH_GAMES_DATA,
+} from "../../../redux/sagas/games-saga";
+import { useEffect } from "react";
 
 const size = {
   mobileS: "320px",
@@ -46,12 +55,91 @@ const Wrapper = styled.div`
   }
 `;
 
-const GamesGrid = ({ setFetching, children }) => {
-  const games = useSelector((store) => store.gamesPage.games);
+const GamesGrid = ({
+  games,
+  order,
+  platform,
+  pageNum,
+  gameNameText,
+  searchStatus,
+  fetching,
+  isSortDown,
+  isLoading,
+  setFetchingTrue,
+  setPage,
+  fetchGamesData,
+}) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!isLoading) {
+      let ordering = "";
+      let platforms = "";
+      let page = "";
+      let search = "";
+
+      if (order) {
+        switch (order) {
+          case "1":
+            ordering = isSortDown ? "rating" : "-rating";
+            break;
+          case "2":
+            ordering = isSortDown ? "released" : "-released";
+            break;
+        }
+      }
+
+      if (platform) platforms = platform;
+      if (pageNum) page = pageNum;
+      if (gameNameText) search = gameNameText;
+
+      dispatch({
+        type: FETCH_ADDITIONAL_GAMES_DATA,
+        payload: {
+          ordering,
+          platforms,
+          page,
+          search,
+        },
+      });
+    }
+  }, [fetching]);
+
+  useEffect(() => {
+    setPage(1);
+    fetchGamesData();
+  }, []);
+
+  useEffect(() => {
+    setPage(1);
+    let ordering = "";
+    let platforms = "";
+    let page = "";
+    let search = "";
+    if (order) {
+      switch (order) {
+        case "1":
+          ordering = isSortDown ? "rating" : "-rating";
+          break;
+        case "2":
+          ordering = isSortDown ? "released" : "-released";
+          break;
+      }
+    }
+
+    if (platform) platforms = platform;
+    if (pageNum) page = pageNum;
+    if (gameNameText) search = gameNameText;
+
+    dispatch({
+      type: FETCH_GAMES_DATA,
+      payload: { ordering, platforms, page, search },
+    });
+  }, [order, platform, isSortDown, searchStatus]);
 
   const scrollListener = (e) => {
     if (e.target.scrollHeight - (e.target.scrollTop + window.innerHeight) < 0) {
-      setFetching(true);
+      setFetchingTrue();
     }
   };
 
@@ -79,4 +167,25 @@ const GamesGrid = ({ setFetching, children }) => {
   );
 };
 
-export default GamesGrid;
+const mapStateToProps = (state) => {
+  return {
+    order: state.gamesPage.order,
+    platform: state.gamesPage.platform,
+    pageNum: state.gamesPage.pageNum,
+    isSortDown: state.gamesPage.isSortDown,
+    fetching: state.gamesPage.fetching,
+    searchStatus: state.gamesPage.searchStatus,
+    gameNameText: state.gamesPage.gameNameText,
+    games: state.gamesPage.games,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchGamesData: () => dispatch(fetchGamesDataAC()),
+    setFetchingTrue: () => dispatch(setFetchingTrueAC()),
+    setPage: (page) => dispatch(setPageDataAC(page)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(GamesGrid);

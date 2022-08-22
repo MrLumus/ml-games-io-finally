@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { useSelector, useDispatch } from "react-redux";
-import { updateGameNameAC } from "../../../redux/reducers/games-reducer";
 
 const size = {
   mobileS: "320px",

@@ -7,6 +7,9 @@ import {
   setFalseLoadingStatusAC,
   updateGamesDataAC,
   cleanupGamesData,
+  setFetchingTrueAC,
+  setPageDataAC,
+  setFetchingFalseAC,
 } from "../actions.js";
 
 export const FETCH_GAMES_DATA = "FETCH-GAMES-DATA";
@@ -28,8 +31,8 @@ function* fetchAdditionalGamesWorker(action) {
   try {
     yield put(setTrueLoadingStatusAC());
     const games = yield call(fetchGames, action.payload);
-    yield action.payload.setPage(action.payload.page + 1);
-    yield action.payload.setFetching(false);
+    yield put(setPageDataAC(action.payload.page + 1));
+    yield put(setFetchingFalseAC());
     yield put(updateGamesDataAC(games.data.results));
     yield put(setFalseLoadingStatusAC());
   } catch (e) {
