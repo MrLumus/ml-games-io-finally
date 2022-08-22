@@ -172,6 +172,7 @@ const Genre = styled.div`
   }
 `;
 const StoreLink = styled.a`
+  text-align: center;
   font-size: 10px;
   color: #fff;
   border: 1px solid #bbb;
